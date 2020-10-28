@@ -1,9 +1,9 @@
 #! /bin/bash
 # prior to compile and install update Make file and customize EXTRAVERSION
-# run from root of linux mainline after making changes
+# run from root of linux mainline or next after making changes
 # dont forget to checkpatch.pl -f <file> !
-cp $1 .config # pass in path to latest config
-echo updating config
+# do git oneline to get formatting of patch subject
+echo did you update the config lately?
 sleep 5
 make listnewconfig
 lsmod > /tmp/my-lsmod
@@ -23,7 +23,10 @@ dmesg -t -l err > dmesg_current_err
 dmesg -t -l warn > dmesg_current_warn
 echo installing kernel
 sleep 5
-sudo su root && make modules_install install && reboot
+sudo make modules_install install && reboot
 # if all good git commit -m "message" <file>
 # git format-patch -1 <commitId>
 # mutt -H 000-mychange.patch
+
+# On first compile there might issues 
+# install openssl-devel, elf-utils and try make prepare
