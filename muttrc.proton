@@ -1,0 +1,38 @@
+# proton mail .muttrc config
+# save this file as .muttrc
+# follow proton mail bridge setup as require
+# update your info below
+
+set ssl_starttls=yes
+set ssl_force_tls=yes
+set send_charset="us-ascii:utf-8"
+
+set imap_user = "your.username@protonmail.com"
+set imap_pass = "your-brige-password"
+
+set spoolfile = "imap://localhost:1143/INBOX"
+set folder ="imap://localhost:1143/"
+set postponed = "imap://localhost:1143/[Protonmail]/Drafts"
+set mbox = "imap://localhost:1143/[Protonmail]/All Mail"
+
+set header_cache = "~/.mutt/cache/headers"
+set message_cachedir = "~/.mutt/cache/bodies"
+set certificate_file = "~/.mutt/certificates"
+
+set smtp_authenticators = "gssapi:login"
+
+# ================  SMTP  ====================
+set smtp_url = "smtp://your.username@protonmail.com:your-brige-password@localhost:1025/"
+
+set move = no
+set imap_keepalive = 900
+
+# ================  Composition  ====================
+set editor = `echo \$EDITOR`
+set edit_headers = yes  # See the headers when editing
+set charset = UTF-8     # value of $LANG; also fallback for send_charset
+# Sender, email address, and sign-off line must match
+unset use_domain        # because joe@localhost is just embarrassing
+set realname = "Your Name"
+set from = "your.username@protonmail.com"
+set use_from = yes
