@@ -7,7 +7,7 @@ echo Which version would you like to updgrade to?
 read VERSION
 echo downloading upgrade to fedora $VERSION
 sleep 5
-# sudo dnf system-upgrade download -y --refresh --releasever=$1
+# sudo dnf system-upgrade download -y --refresh --releasever=$VERSION
 sleep 5
 echo rebooting....
 sleep 5
