@@ -4,7 +4,7 @@
 # dont forget to checkpatch.pl -f <file> !
 # do git oneline to get formatting of patch subject
 echo grabbing latest changes...
-git checkout master && git stash && git pull && git branch -D work && git checkout -b work
+git checkout master && git stash && git pull
 echo updating config...
 cp /boot/config-5.9.16-200.fc33.x86_64 .config
 sleep 5
