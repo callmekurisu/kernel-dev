@@ -1,13 +1,21 @@
 #! /bin/bash
-# prior to compile and install update Make file and customize EXTRAVERSION
-# run from root of linux mainline or next after making changes
+# run from root of linux mainline after making changes
 # dont forget to checkpatch.pl -f <file> !
 # do git oneline to get formatting of patch subject
-echo grabbing latest changes...
-git checkout master && git stash && git pull
-echo updating config...
-cp /boot/config-5.9.16-200.fc33.x86_64 .config
+
+WORKDIR=`echo $(pwd)`/
+CONFIG=`echo /boot/$(ls -1 /boot/ | grep config | tail -1)`
+echo setting working directory to: $WORKDIR
 sleep 5
+echo grabbing latest changes
+sleep 5
+git checkout master && git stash && git pull
+echo cleaning up relase candiates
+sleep 5
+cd /boot/ && sudo rm -f *rc* && cd /boot/loader/entries && rm -f *rc* && cd $WORKDIR
+echo setting latest config to: $CONFIG
+sleep 5
+cp $CONFIG .config
 make listnewconfig
 lsmod > /tmp/my-lsmod
 make LSMOD=/tmp/my-lsmod localmodconfig
@@ -27,7 +35,11 @@ dmesg -t -l warn > dmesg_current_warn
 echo installing kernel
 sleep 5
 sudo make modules_install install
-echo restart to boot into modified kernel
+echo booting into $(ls /boot/ | grep rc | tail -1)
+echo press ctrl+c to abort
+sleep 15
+sudo reboot
+
 # if all good git commit -m "message" <file>
 # git format-patch -1 <commitId>
 # mutt -H 000-mychange.patch
